@@ -1,0 +1,25 @@
+<template>
+  <lightning-card title="ChatGPT in Salesforce">
+    <div class="slds-p-around_medium">
+      <lightning-textarea 
+        label="Your Prompt" 
+        value={prompt} 
+        onchange={handleInput}>
+      </lightning-textarea>
+
+      <lightning-button 
+        class="slds-m-top_small"
+        label="Ask GPT" 
+        onclick={handleClick}>
+      </lightning-button>
+
+      <template if:true={response}>
+        <div class="slds-m-top_medium">
+          <p><strong>Response:</strong></p>
+          <lightning-formatted-text value={response}></lightning-formatted-text>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>
+

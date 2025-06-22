@@ -1,0 +1,25 @@
+import { LightningElement, track } from 'lwc';
+import callChatGPT from '@salesforce/apex/OpenAIChatService.callChatGPT';
+
+export default class ChatWithGpt extends LightningElement {
+  @track prompt = '';
+  @track response = '';
+
+  handleInput(event) {
+    this.prompt = event.target.value;
+  }
+
+  handleClick() {
+    if (!this.prompt) {
+      this.response = 'Please enter a prompt first.';
+      return;
+    }
+    callChatGPT({ userPrompt: this.prompt })
+      .then(res => {
+        this.response = res;
+      })
+      .catch(err => {
+        this.response = 'Error: ' + (err.body?.message || JSON.stringify(err));
+      });
+  }
+}
